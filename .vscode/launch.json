@@ -1,0 +1,14 @@
+{
+  // Más información: https://go.microsoft.com/fwlink/?linkid=830387
+  // Las pruebas corren con Vitest en consola (npm test); no hay página de depuración en el navegador.
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "ng serve",
+      "type": "chrome",
+      "request": "launch",
+      "preLaunchTask": "npm: start",
+      "url": "http://localhost:4200/"
+    }
+  ]
+}

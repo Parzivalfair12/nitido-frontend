@@ -1,0 +1,91 @@
+// Tokens del estilo Cristal (tema `.ap.t-cristal` del mockup docs/mockup-nitido.dc.html).
+// Es el único archivo donde se escriben colores: el resto de los estilos usa estas variables (npm run lint:estilos).
+:root {
+  --font: 'Geist', system-ui, sans-serif;
+  --font-head: var(--font);
+  --head-w: 600;
+  --head-ls: -0.015em;
+  --font-num: var(--font);
+
+  // Superficies y texto
+  --surface: rgba(255, 255, 255, 0.6);
+  --bg2: rgba(255, 255, 255, 0.4);
+  --soft: rgba(255, 255, 255, 0.35);
+  --rowhover: rgba(255, 255, 255, 0.55);
+  --sel: rgba(244, 241, 255, 0.9);
+  --ink: #0f172a;
+  --text2: #394055;
+  --text3: #4a5168;
+  --text4: #687089;
+  --strong2: #2b3245;
+
+  // Líneas
+  --line: rgba(15, 23, 42, 0.1);
+  --line2: rgba(15, 23, 42, 0.06);
+  --border: rgba(15, 23, 42, 0.14);
+  --border2: rgba(15, 23, 42, 0.22);
+
+  // Acento y estados
+  --accent: #3b26c4;
+  --accent-hover: #2e1da0;
+  --on-accent: #fff;
+  --bar: #3b26c4;
+  --track: rgba(15, 23, 42, 0.08);
+  --ok: #15803d;
+  --warn: #9a5800;
+  --err: #b42318;
+  --warn-bg: rgba(255, 236, 204, 0.75);
+  --warn-ink: #713f00;
+
+  // Aviso emergente (toast)
+  --toast-bg: rgba(15, 23, 42, 0.78);
+  --toast-fg: #fff;
+  --toast-line: rgba(255, 255, 255, 0.28);
+  --toast-shadow: 0 8px 24px rgba(24, 24, 27, 0.18);
+
+  // Logo
+  --logo-bg: #3b26c4;
+  --logo-fg: #fff;
+  --logo-dot: #2fc7b4;
+  --logo-shine: #fff;
+
+  // Menú lateral
+  --side-bg: rgba(255, 255, 255, 0.42);
+  --side-line: rgba(255, 255, 255, 0.65);
+  --side-text: #394055;
+  --side-strong: #0f172a;
+  --side-muted: #5a6178;
+  --side-hover: rgba(255, 255, 255, 0.5);
+  --side-on-bg: rgba(255, 255, 255, 0.88);
+  --side-on-ring: rgba(255, 255, 255, 0.95);
+  --side-dd: rgba(255, 255, 255, 0.9);
+  --side-av: rgba(255, 255, 255, 0.75);
+  --side-logo-bg: #3b26c4;
+  --side-logo-fg: #fff;
+
+  // Radios
+  --r: 10px;
+  --r2: 16px;
+  --r-pill: 10px;
+  --r-glass: 18px;
+
+  // Fondo de la aplicación
+  --app-bg:
+    radial-gradient(ellipse 60% 50% at 12% 8%, #c9d3ff 0, transparent 70%),
+    radial-gradient(ellipse 50% 45% at 88% 4%, #f6cfe4 0, transparent 70%),
+    radial-gradient(ellipse 55% 50% at 78% 92%, #bdebdd 0, transparent 70%),
+    radial-gradient(ellipse 50% 45% at 8% 96%, #fbe3b8 0, transparent 70%),
+    #eceff6;
+
+  // Panel de vidrio (área de trabajo y tarjeta de ingreso). El menú lateral usa --side-bg (0,42).
+  --glass-work: rgba(255, 255, 255, 0.5);
+  --glass-card: rgba(255, 255, 255, 0.55);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.7);
+  --glass-blur: blur(28px) saturate(150%);
+  --glass-shadow: 0 10px 40px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --blur-toast: blur(16px);
+
+  // Código QR de la inscripción: debe ser oscuro sobre claro para que lo lean las aplicaciones.
+  --qr-fondo: #fff;
+  --qr-trazo: #0f172a;
+}

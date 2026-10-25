@@ -1,0 +1,174 @@
+<main class="lg">
+  <div class="lg-caja">
+    <div class="encabezado">
+      <nt-logo [tamano]="30" />
+      <span class="marca">nítido</span>
+    </div>
+
+    @switch (paso()) {
+      @case ('credenciales') {
+        <div>
+          <h1>Ingresa a tu cuenta</h1>
+          <p class="subtitulo">Usa el correo con el que tu firma te dio acceso.</p>
+        </div>
+        <form (submit)="ingresar($event)" novalidate>
+          <nt-campo
+            idCampo="correo"
+            etiqueta="Correo"
+            tipo="email"
+            autocompletar="email"
+            marcador="nombre@tufirma.com"
+            [valor]="correo()"
+            (valorChange)="editarCorreo($event)"
+          />
+          <nt-campo
+            idCampo="clave"
+            etiqueta="Contraseña"
+            tipo="password"
+            autocompletar="current-password"
+            [valor]="clave()"
+            (valorChange)="editarClave($event)"
+          />
+          @if (error()) {
+            <p class="err" role="alert">{{ error() }}</p>
+          }
+          <button ntBoton variante="principal" [grande]="true" type="submit" [disabled]="enviando()">Ingresar</button>
+          <p class="sm sin-margen">
+            Al ingresar aceptas los
+            <button class="lk" type="button" (click)="alternarDocumento('terminos')">términos de uso</button>
+            y la
+            <button class="lk" type="button" (click)="alternarDocumento('politica')">
+              política de tratamiento de datos</button
+            >.
+          </p>
+          @if (resumen(); as abierto) {
+            <nt-aviso [etiqueta]="abierto.titulo">
+              <p class="b5 titulo-aviso">{{ abierto.titulo }}</p>
+              <ul class="puntos">
+                @for (punto of abierto.puntos; track punto) {
+                  <li>{{ punto }}</li>
+                }
+              </ul>
+            </nt-aviso>
+          }
+        </form>
+        <p class="solicitar">¿Tu firma aún no usa Nítido? Solicita acceso</p>
+      }
+
+      @case ('codigo') {
+        <div>
+          <h1>Confirma que eres tú</h1>
+          <p class="subtitulo">
+            @if (conRecuperacion()) {
+              Escribe uno de tus códigos de recuperación.
+            } @else {
+              Escribe el código de 6 dígitos de tu aplicación autenticadora.
+            }
+          </p>
+        </div>
+        <form (submit)="confirmarCodigo($event)" novalidate>
+          @if (conRecuperacion()) {
+            <nt-campo
+              idCampo="codigo-recuperacion"
+              etiqueta="Código de recuperación"
+              autocompletar="off"
+              [valor]="codigo()"
+              (valorChange)="editarCodigo($event)"
+            />
+          } @else {
+            <nt-campo
+              idCampo="codigo"
+              etiqueta="Código"
+              modo="numeric"
+              autocompletar="one-time-code"
+              marcador="123456"
+              [valor]="codigo()"
+              (valorChange)="editarCodigo($event)"
+            />
+          }
+          @if (error()) {
+            <p class="err" role="alert">{{ error() }}</p>
+          }
+          <button ntBoton variante="principal" [grande]="true" type="submit" [disabled]="enviando()">Confirmar</button>
+          <button class="lk alternar" type="button" (click)="alternarRecuperacion()">
+            @if (conRecuperacion()) {
+              Usar el código de mi aplicación
+            } @else {
+              Usar un código de recuperación
+            }
+          </button>
+        </form>
+      }
+
+      @case ('inscripcion') {
+        <div>
+          <h1>Protege tu cuenta</h1>
+          <p class="subtitulo">
+            Escanea este código con una aplicación autenticadora, como Google Authenticator o Microsoft Authenticator, y
+            escribe el código de 6 dígitos que te muestre.
+          </p>
+        </div>
+        <form (submit)="activar($event)" novalidate>
+          <img class="qr" [src]="qr()" alt="Código QR para tu aplicación autenticadora" width="192" height="192" />
+          <p class="sm sin-margen">
+            ¿No puedes escanearlo? Escribe esta clave:
+            <strong class="clave-manual">{{ claveEnGrupos() }}</strong>
+          </p>
+          <nt-campo
+            idCampo="codigo"
+            etiqueta="Código"
+            modo="numeric"
+            autocompletar="one-time-code"
+            marcador="123456"
+            [valor]="codigo()"
+            (valorChange)="editarCodigo($event)"
+          />
+          @if (error()) {
+            <p class="err" role="alert">{{ error() }}</p>
+          }
+          <button ntBoton variante="principal" [grande]="true" type="submit" [disabled]="enviando()">Activar</button>
+        </form>
+      }
+
+      @case ('codigos') {
+        <div>
+          <h1>Guarda tus códigos de recuperación</h1>
+          <p class="subtitulo">
+            Cada código sirve una sola vez si pierdes tu teléfono. Guárdalos en un lugar seguro: no los volverás a ver.
+          </p>
+        </div>
+        <div class="tarjeta">
+          <ul class="codigos" aria-label="Códigos de recuperación">
+            @for (codigoDeRecuperacion of codigosDeRecuperacion(); track codigoDeRecuperacion) {
+              <li>{{ codigoDeRecuperacion }}</li>
+            }
+          </ul>
+          <div class="ac">
+            <button ntBoton type="button" (click)="copiar()">Copiar</button>
+            <button ntBoton type="button" (click)="descargar()">Descargar</button>
+          </div>
+          @if (copiado()) {
+            <p class="sm sin-margen" role="status">Copiaste los códigos.</p>
+          }
+          <label class="chk">
+            <input type="checkbox" [checked]="codigosGuardados()" (change)="codigosGuardados.set($any($event.target).checked)" />
+            Ya guardé mis códigos
+          </label>
+          @if (error()) {
+            <p class="err" role="alert">{{ error() }}</p>
+          }
+          <button
+            ntBoton
+            variante="principal"
+            [grande]="true"
+            type="button"
+            [disabled]="!codigosGuardados() || enviando()"
+            (click)="continuar()"
+          >
+            Continuar
+          </button>
+        </div>
+      }
+    }
+  </div>
+</main>

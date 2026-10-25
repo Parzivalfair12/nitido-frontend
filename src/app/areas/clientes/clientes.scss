@@ -1,0 +1,29 @@
+:host {
+  // El área de trabajo (.mc) es la que participa del diseño flexible de la estructura; este elemento no debe
+  // ensanchar la página con el ancho mínimo de la tabla.
+  display: contents;
+}
+
+.tabla {
+  min-width: 760px;
+}
+
+.cols {
+  grid-template-columns: minmax(240px, 1.6fr) 100px minmax(200px, 1.2fr) 190px;
+}
+
+.fila {
+  min-height: 60px;
+}
+
+.bloque {
+  display: block;
+}
+
+.ancho-total {
+  flex-basis: 100%;
+}
+
+.mensaje {
+  padding: 16px 32px;
+}

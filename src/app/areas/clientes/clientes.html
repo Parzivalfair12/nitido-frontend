@@ -1,0 +1,65 @@
+<nt-area-trabajo titulo="Clientes" [subtitulo]="resumen()">
+  <div acciones class="ac">
+    <nt-busqueda etiqueta="Buscar por nombre o NIT" [valor]="busqueda()" (valorChange)="busqueda.set($event)" />
+    <button ntBoton variante="principal" type="button" (click)="abrirFormulario()">Agregar cliente</button>
+  </div>
+
+  @if (formularioAbierto()) {
+    <form class="frm" (submit)="guardar($event)" novalidate>
+      <nt-campo
+        idCampo="razon-social"
+        etiqueta="Razón social o nombre"
+        marcador="Distribuidora Andina SAS"
+        [valor]="razonSocial()"
+        (valorChange)="editarRazonSocial($event)"
+      />
+      <nt-campo
+        idCampo="documento"
+        etiqueta="NIT o cédula"
+        marcador="901234567"
+        [valor]="documento()"
+        (valorChange)="editarDocumento($event)"
+      />
+      <div class="ac">
+        <button ntBoton variante="principal" type="submit" [disabled]="guardando()">Guardar cliente</button>
+        <button ntBoton type="button" (click)="cerrarFormulario()">Cancelar</button>
+      </div>
+      @if (errorDelFormulario()) {
+        <p class="err ancho-total" role="alert">{{ errorDelFormulario() }}</p>
+      }
+    </form>
+  }
+
+  <div class="wr" tabindex="0" role="region" aria-label="Lista de clientes">
+    <div class="tabla" role="table" aria-label="Clientes">
+      <div class="row hdr cols" role="row">
+        <span role="columnheader">Cliente</span>
+        <span class="nu" role="columnheader">Pendientes</span>
+        <span role="columnheader">Contabilizado en {{ mesEnCurso }}</span>
+        <span role="columnheader">Estado</span>
+      </div>
+      @for (cliente of filas(); track cliente.uuid) {
+        <div class="row cols fila" role="row">
+          <span role="cell">
+            <span class="b5 bloque">{{ cliente.razonSocial }}</span>
+            <span class="sm">{{ documentoDe(cliente) }}</span>
+          </span>
+          <span class="nu" role="cell">—</span>
+          <span role="cell">—</span>
+          <span role="cell"><nt-estado color="ok">Sin documentos</nt-estado></span>
+        </div>
+      }
+    </div>
+  </div>
+
+  @if (errorDeCarga()) {
+    <p class="err mensaje" role="alert">{{ errorDeCarga() }}</p>
+  } @else if (!cargando() && clientes().length === 0) {
+    <nt-vacio titulo="Aún no tienes clientes" texto="Agrega el primero con el botón Agregar cliente." />
+  } @else if (!cargando() && filas().length === 0) {
+    <nt-vacio
+      [titulo]="'Ningún cliente coincide con «' + busqueda() + '»'"
+      texto="Busca por razón social o por número de documento."
+    />
+  }
+</nt-area-trabajo>

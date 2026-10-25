@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="nítido">
+  <path d="M14 40V24a10 10 0 0 1 10-10H40M80 14H96a10 10 0 0 1 10 10V40M106 80V96a10 10 0 0 1-10 10H80M40 106H24a10 10 0 0 1-10-10V80" fill="none" stroke="#3B26C4" stroke-width="11" stroke-linecap="round"/>
+  <circle cx="60" cy="60" r="19" fill="#2FC7B4"/>
+  <circle cx="53" cy="53" r="5.5" fill="#FFFFFF" opacity="0.85"/>
+</svg>

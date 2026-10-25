@@ -1,0 +1,64 @@
+.encabezado {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.subtitulo {
+  margin: 6px 0 0;
+  color: var(--text2);
+}
+
+.sin-margen {
+  margin: 0;
+}
+
+.solicitar {
+  margin: 0;
+  text-align: center;
+  color: var(--text2);
+}
+
+.titulo-aviso {
+  margin: 0 0 6px;
+}
+
+.puntos {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.alternar {
+  align-self: flex-start;
+}
+
+.qr {
+  align-self: center;
+  border-radius: var(--r);
+  background: var(--qr-fondo);
+}
+
+.clave-manual {
+  display: block;
+  margin-top: 4px;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+  color: var(--ink);
+}
+
+.codigos {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 16px;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+}

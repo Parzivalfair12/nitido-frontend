@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  NG_CLI_ANALYTICS: "false"
+
+jobs:
+  frontend:
+    name: frontend
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Obtener el código
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Instalar Node según .nvmrc
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Revisar el código (lint)
+        run: npm run lint
+
+      # Stylelint: ningún color fuera de src/styles/tokens.scss.
+      - name: Revisar los estilos
+        run: npm run lint:estilos
+
+      - name: Probar
+        run: npm test
+
+      - name: Compilar
+        run: npm run build
