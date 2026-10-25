@@ -49,6 +49,7 @@ Playwright necesita la API (http://localhost:5080) y el frontend (`npm start`) c
 - `main` siempre desplegable. Ramas `feat/<tema>` y `fix/<tema>`.
 - Commits en formato Conventional Commits, en español: `feat(pendientes): mostrar el asiento propuesto`.
 - Todo entra por pull request con CI en verde y revisión del agente `revisor`.
+- `main` está protegida (regla «Proteger main»): no se empuja directo; el chequeo `frontend` debe estar en verde y actualizado respecto de `main`. Se comprobó con un pull request en rojo (F0-06 etapa 2; ver el resultado en la especificación F0-06 del repositorio `nitido-backend`).
 
 ## Estructura
 
